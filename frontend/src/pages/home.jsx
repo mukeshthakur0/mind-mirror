@@ -1,5 +1,7 @@
 import Hero from '../components/hero.jsx';
 import About from '../components/about';
+import Footer from '../components/footer.jsx';
+import FeedbackPage from '../components/feedback.jsx';
 function Home() {
   return (
     <div className='about-root'>
@@ -14,6 +16,9 @@ function Home() {
       </style>
       <Hero />
       <About />
+      <FeedbackPage />
+      <Footer />
+
     </div>
   );
 }
