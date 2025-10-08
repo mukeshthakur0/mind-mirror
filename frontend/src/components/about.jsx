@@ -12,7 +12,7 @@ function About() {
   ];
 
   return (
-    <div className="p-6 md:p-12">
+    <div className="p-6 md:p-12 bg-gray-50 w-full">
       {/* Section Title */}
       <div className="flex justify-center mb-8">
         <span className="px-6 py-2 text-lg md:text-xl font-semibold tracking-wide border border-gray-300 bg-gray-100 text-gray-800 rounded-full">
