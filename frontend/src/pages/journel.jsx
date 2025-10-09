@@ -36,8 +36,8 @@ export default function JournalPage({ userId, apiBaseUrl = "http://localhost:500
         setAllEntries(data);
         const map = {};
         data.forEach((entry) => {
-          const d = isoDate(new Date(entry.date));
-          map[d] = entry;
+          const d = isoDate(entry.date);
+          if (d) map[d] = entry; // only map valid dates
         });
         setEntries(map);
       })
@@ -82,7 +82,10 @@ export default function JournalPage({ userId, apiBaseUrl = "http://localhost:500
     const saved = await res.json();
 
     // update both state stores
-    setEntries((prev) => ({ ...prev, [isoDate(selectedDate)]: saved }));
+    const d = isoDate(saved.date);
+    if (!d) return;
+
+    setEntries((prev) => ({ ...prev, [d]: saved }));
     setAllEntries((prev) => {
       const filtered = prev.filter((e) => e._id !== saved._id);
       return [saved, ...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -204,14 +207,16 @@ export default function JournalPage({ userId, apiBaseUrl = "http://localhost:500
               <button
                 key={entry._id}
                 onClick={() => {
-                  setSelectedDate(new Date(entry.date));
+                  if (entry.date) setSelectedDate(new Date(entry.date));
                 }}
                 className="w-full text-left p-3 rounded-xl hover:bg-gray-100 transition"
               >
                 <div className="flex justify-between items-center">
                   <span className="font-medium">{entry.title}</span>
                   <span className="text-sm text-gray-500">
-                    {new Date(entry.date).toLocaleDateString()}
+                    {entry.date
+                      ? new Date(entry.date).toLocaleDateString()
+                      : "No date"}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 line-clamp-2">{entry.content}</p>
@@ -285,22 +290,31 @@ function startOfDay(d) {
   x.setHours(0, 0, 0, 0);
   return x;
 }
+
+// ✅ Safe isoDate
 function isoDate(d) {
-  return d.toISOString().split("T")[0];
+  if (!d) return "";
+  const dateObj = new Date(d);
+  if (isNaN(dateObj.getTime())) return "";
+  return dateObj.toISOString().split("T")[0];
 }
+
 function formatHumanDate(d) {
-  return d.toLocaleDateString(undefined, {
+  if (!d || isNaN(new Date(d).getTime())) return "Invalid date";
+  return new Date(d).toLocaleDateString(undefined, {
     weekday: "short",
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 }
+
 function addMonths(date, count) {
   const d = new Date(date);
   d.setMonth(d.getMonth() + count);
   return d;
 }
+
 function buildCalendarGrid(offset = 0) {
   const base = startOfDay(new Date());
   const firstOfMonth = new Date(

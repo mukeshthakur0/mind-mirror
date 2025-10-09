@@ -15,7 +15,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      navigate("/Dashboard");
     } catch (error) {
       alert(error.message);
     }
@@ -38,7 +38,7 @@ export default function LoginPage() {
           createdAt: new Date(),
         });
       }
-      navigate("/dashboard");
+      navigate("/Dashboard");
     } catch (error) {
       alert(error.message);
     }

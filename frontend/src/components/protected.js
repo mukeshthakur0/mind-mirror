@@ -11,7 +11,7 @@ function ProtectedRoute({ children }) {
   }
 
   if (!user) {
-    return <Navigate to="/loginPage" replace />; // bina login redirect
+    return <Navigate to="/signin" replace />; // bina login redirect
   }
 
   return children; // agar login hai toh page dikhado

@@ -1,30 +1,42 @@
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { auth } from "../utils/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/sidebar";
 export default function Dashboard() {
-    const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchDashboard = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                setMessage("You are not logged in");
-                return;
-            }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, [navigate]);
 
-            const res = await fetch("http://localhost:5000/protected/dashboard", {
-                headers: { "Authorization": token }
-            });
-            const data = await res.json();
-            setMessage(data.message);
-        };
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
 
-        fetchDashboard();
-    }, []);
-
-    return (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            <h2>Dashboard</h2>
-            <p>{message}</p>
-        </div>
-    );
+  return (
+    <div> <Sidebar />
+ 
+        
+      <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h2 className="text-2xl font-bold mb-4">Welcome, {user?.displayName || user?.email}</h2>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+        >
+          Logout
+        </button>
+      </div>
+  
+    </div>
+  );
 }

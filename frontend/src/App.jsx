@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/protected";
 
 function App() {
   const location = useLocation();
-   const hideNavbarRoutes = ["/dashboard"];
+   const hideNavbarRoutes = ["/Dashboard"];
 
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
@@ -26,7 +26,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/signin" element={<AuthPage />} />
        
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/journal" element={<ProtectedRoute><JournalSection /></ProtectedRoute>} />
       </Routes>
       
