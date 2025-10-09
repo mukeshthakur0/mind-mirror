@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, googleProvider } from "../utils/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
+import { signInWithRedirect } from "firebase/auth";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,6 +41,12 @@ export default function LoginPage() {
           createdAt: new Date(),
         });
       }
+      navigate("/Dashboard");
+    } catch (error) {
+      alert(error.message);
+    }
+      try {
+     await signInWithRedirect(auth, googleProvider);
       navigate("/Dashboard");
     } catch (error) {
       alert(error.message);
