@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://resume-analyzer.vercel.app"], // frontend domain
+  origin: ["https://mind-mirror-pi.vercel.app/"], // frontend domain
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 app.use(express.json());
