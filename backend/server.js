@@ -1,22 +1,37 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import journalRoutes from "./routes/journalroutes.js";
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
-// ✅ CORS & JSON Middleware
-app.use(cors({ origin: "http://localhost:3000" }));
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// ✅ Routes
-app.use("/api/journals", journalRoutes);
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://mind_mirror:Mitu2004@resume-analyzer.4tmgaxp.mongodb.net/?appName=resume-analyzer', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('✅ MongoDB Connected'))
+.catch((err) => console.error('❌ MongoDB Connection Error:', err));
 
-// ✅ MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/journalApp")
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error(err));
+// Routes
+app.use('/api/journals', require('./routes/journals'));
 
-// ✅ Start server
-const PORT = 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Health Check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Journal API is running' });
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!', message: err.message });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
