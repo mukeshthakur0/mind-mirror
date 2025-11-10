@@ -12,7 +12,8 @@ import ProtectedRoute from "./components/protected";
 
 function App() {
   const location = useLocation();
-   const hideNavbarRoutes = ["/Dashboard"];
+   const hideNavbarRoutes = ["/Dashboard","/journel"];
+
 
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
