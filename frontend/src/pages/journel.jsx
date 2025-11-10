@@ -162,11 +162,7 @@ export default function JournalPage() {
   };
 
   const totalEntries = Object.keys(entries).length;
-  const moodCounts = Object.values(entries).reduce((acc, e) => {
-    acc[e.mood] = (acc[e.mood] || 0) + 1;
-    return acc;
-  }, {});
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 p-4 md:p-6 relative overflow-hidden">
       {/* loading overlay */}
