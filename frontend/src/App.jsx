@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import {  Routes, Route, } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/home';
 import  Section from './pages/section'
@@ -7,7 +7,6 @@ import AuthPage from './pages/login'
 import SignUpPage from './pages/signup';
 import Dashboard from "./pages/dashboard";
 import { useLocation } from 'react-router-dom';
-import Sidebar from "./components/sidebar";
 import JournalSection from "./pages/journel";
 import ProtectedRoute from "./components/protected";
 
