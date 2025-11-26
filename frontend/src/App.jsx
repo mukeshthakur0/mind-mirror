@@ -8,6 +8,7 @@ import SignUpPage from './pages/signup';
 import Dashboard from "./pages/dashboard";
 import { useLocation } from 'react-router-dom';
 import JournalSection from "./pages/journel";
+import Chatbot from './pages/chat';
 import ProtectedRoute from "./components/protected";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
         <Route path="/about" element={<Section />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/signin" element={<AuthPage />} />
-       
+       <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
         <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/journal" element={<ProtectedRoute><JournalSection /></ProtectedRoute>} />
       </Routes>

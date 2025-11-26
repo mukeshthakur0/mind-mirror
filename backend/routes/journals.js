@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Journal = require('../models/Journal');
+const Journal = require('../models/journals');
 
 // @route   GET /api/journals/user/:userId
 // @desc    Get all journal entries for a user

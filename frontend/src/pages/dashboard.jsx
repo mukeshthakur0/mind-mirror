@@ -34,7 +34,7 @@ const [userName, setUserName] = useState("Guest");
 
   const menuItems = [
     { id: "overview", label: "Overview", icon: Home, link: "/overview" },
-    { id: "aibot", label: "AI Bot", icon: Brain, link: "/aibot" },
+    { id: "aibot", label: "AI Bot", icon: Brain, link: "/Chatbot" },
     { id: "journal", label: "Journal", icon: BookOpen, link: "/journal" },
     { id: "mood", label: "Mood Analyzer", icon: Heart, link: "/mood" },
     { id: "analytics", label: "Analytics", icon: Activity, link: "/analytics" },
@@ -246,7 +246,7 @@ const [userName, setUserName] = useState("Guest");
                     <BookOpen className="w-5 h-5" /> New Journal Entry
                   </Link>
                   <Link
-                    to="/aibot"
+                    to="/Chatbot"
                     className="w-full bg-slate-700 text-white py-3 rounded-lg hover:bg-slate-600 transition-all flex items-center justify-center gap-2"
                   >
                     <Brain className="w-5 h-5" /> Chat with AI

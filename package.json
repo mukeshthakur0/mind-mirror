@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axois": "^0.0.1-security",
     "dotenv": "^17.2.3",
     "jsonwebtoken": "^9.0.2",
     "react": "^18.3.1",

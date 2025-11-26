@@ -1,4 +1,4 @@
-const API_BASE = "https://mind-mirror-pi.vercel.app/api/journals";
+const API_BASE = "http://localhost:5000/api/journals";
 const USER_ID = "demoUser123"; // ⚠️ Replace later with real auth user ID
 
 // Get all journals for a user
