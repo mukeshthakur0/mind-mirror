@@ -6,7 +6,13 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
+
 app.use(cors());
+app.use(cors({
+  origin: ["https://mind-mirror-pi.vercel.app/"], // frontend domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
 
 // MongoDB Connection
